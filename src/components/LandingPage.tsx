@@ -1,6 +1,8 @@
 import { Button } from './ui/button';
 import { CheckCircle2, Clock, FileText, Users, TrendingUp, Shield, Zap } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { Navbar } from './Navbar';
+import { Footer } from './Footer';
 
 interface LandingPageProps {
   onLoginClick: () => void;
@@ -10,24 +12,7 @@ export function LandingPage({ onLoginClick }: LandingPageProps) {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="border-b border-gray-200 bg-white sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                <FileText className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-gray-900" style={{ fontSize: '20px', fontWeight: '600' }}>LoanFactory Transaction </span>
-            </div>
-            <Button 
-              onClick={onLoginClick}
-              className="bg-orange-500 hover:bg-orange-600 text-white"
-            >
-              Login
-            </Button>
-          </div>
-        </div>
-      </nav>
+      <Navbar onLoginClick={onLoginClick} />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-gray-50 to-white py-20 lg:py-32">
@@ -87,7 +72,7 @@ export function LandingPage({ onLoginClick }: LandingPageProps) {
                   </div>
                   <div>
                     <div className="text-gray-900" style={{ fontSize: '24px', fontWeight: '700' }}>98%</div>
-                    <div className="text-gray-600" style={{ fontSize: '14px' }}>Success Rate</div>
+                    <div className="text-gray-600" style={{ fontSize: '14px' }}>Success Transactions</div>
                   </div>
                 </div>
               </div>
@@ -210,50 +195,7 @@ export function LandingPage({ onLoginClick }: LandingPageProps) {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-white" style={{ fontSize: '18px', fontWeight: '600' }}>LoanFactory Transaction </span>
-              </div>
-              <p className="text-gray-400" style={{ fontSize: '14px' }}>
-                The complete transaction management system for real estate professionals.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white mb-4" style={{ fontSize: '16px', fontWeight: '600' }}>Product</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Features</a></li>
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Pricing</a></li>
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Demo</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white mb-4" style={{ fontSize: '16px', fontWeight: '600' }}>Company</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>About</a></li>
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Careers</a></li>
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white mb-4" style={{ fontSize: '16px', fontWeight: '600' }}>Legal</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Privacy</a></li>
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Terms</a></li>
-                <li><a href="#" className="hover:text-orange-500 transition-colors" style={{ fontSize: '14px' }}>Security</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-            <p style={{ fontSize: '14px' }}>© 2025 LoanFactory Transaction . All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

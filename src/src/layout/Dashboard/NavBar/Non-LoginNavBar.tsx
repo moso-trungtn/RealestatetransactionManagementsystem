@@ -1,12 +1,12 @@
-import { Button } from './ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { Button } from '../../../../components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../../components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
 
-interface NavbarProps {
+interface NonLoginNavBarProps {
   onLoginClick: () => void;
 }
 
-export function Navbar({ onLoginClick }: NavbarProps) {
+export function NonLoginNavBar({ onLoginClick }: NonLoginNavBarProps) {
   const languages = [
     { code: 'EN', name: 'English', flag: '🇺🇸' },
     { code: 'ES', name: 'Spanish', flag: '🇪🇸' },

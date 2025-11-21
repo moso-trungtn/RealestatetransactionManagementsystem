@@ -4,10 +4,10 @@ import {
   DialogContent,
   DialogTitle,
   DialogDescription,
-} from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+} from "../../components/ui/dialog";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
 import {
   FileText,
   Mail,
@@ -67,21 +67,6 @@ export function LoginModal({
 
         {/* Login Form */}
         <div className="px-8 py-6 bg-white">
-          <div className="mb-5">
-            <h3
-              className="text-gray-900 text-center mb-1"
-              style={{ fontSize: "22px", fontWeight: "600" }}
-            >
-              Welcome Back
-            </h3>
-            <p
-              className="text-gray-500 text-center"
-              style={{ fontSize: "13px" }}
-            >
-              Sign in to access your dashboard
-            </p>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
               <Label
@@ -152,22 +137,6 @@ export function LoginModal({
                 </button>
               </div>
             </div>
-
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="remember"
-                className="w-4 h-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500 focus:ring-offset-0"
-              />
-              <label
-                htmlFor="remember"
-                className="ml-2 text-gray-600 cursor-pointer"
-                style={{ fontSize: "13px" }}
-              >
-                Remember me for 30 days
-              </label>
-            </div>
-
             <Button
               type="submit"
               className="w-full h-10 bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/20 transition-all hover:shadow-orange-500/30"

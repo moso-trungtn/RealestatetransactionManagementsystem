@@ -31,7 +31,6 @@
           "@radix-ui/react-toggle-group": "^1.1.2",
           "@radix-ui/react-tooltip": "^1.1.8",
           "@radix-ui/react-visually-hidden": "*",
-          "class-variance-authority": "^0.7.1",
           "clsx": "*",
           "cmdk": "^1.1.1",
           "date-fns": "*",
@@ -46,6 +45,7 @@
           "react-resizable-panels": "^2.1.7",
           "recharts": "^2.15.2",
           "sonner": "^2.0.3",
+          "tailwind-merge": "*",
           "vaul": "^1.1.2"
       },
       "devDependencies": {
