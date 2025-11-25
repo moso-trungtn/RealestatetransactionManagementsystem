@@ -67,21 +67,6 @@ export function LoginModal({
 
         {/* Login Form */}
         <div className="px-8 py-6 bg-white">
-          <div className="mb-5">
-            <h3
-              className="text-gray-900 text-center mb-1"
-              style={{ fontSize: "22px", fontWeight: "600" }}
-            >
-              Welcome Back
-            </h3>
-            <p
-              className="text-gray-500 text-center"
-              style={{ fontSize: "13px" }}
-            >
-              Sign in to access your dashboard
-            </p>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
               <Label
