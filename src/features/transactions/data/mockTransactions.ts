@@ -1,0 +1,91 @@
+import { Transaction } from '@/types/transaction';
+
+export const mockTransactions: Transaction[] = [
+  {
+    id: '1',
+    clientName: 'Joan Morris',
+    address: '45 Covington Road',
+    city: 'Ventura',
+    state: 'CA',
+    zipCode: '93003',
+    price: 825000,
+    type: 'Purchase',
+    status: 'Pre-contract',
+    closingDate: 'Nov 21, 2025',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yfGVufDF8fHx8MTc2MTY3NTM5M3ww&ixlib=rb-4.1.0&q=80&w=1080',
+    mlsNumber: '123456',
+    modifiedDate: 'Sep 12, 2025'
+  },
+  {
+    id: '2',
+    clientName: 'Yaro Kallaberry',
+    address: '55 Robin Blvd',
+    city: 'Riverside',
+    state: 'CA',
+    zipCode: '96102',
+    price: 2500000,
+    type: 'Listing',
+    status: 'Pre-contract',
+    listDate: 'Sep 22, 2025',
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250ZW1wb3JhcnklMjBob3VzZXxlbnwxfHx8fDE3NjE2Njg1Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    mlsNumber: '123457',
+    modifiedDate: 'Sep 11, 2025'
+  },
+  {
+    id: '3',
+    clientName: 'Mia Peplum',
+    address: '62 Caledon Way',
+    city: 'Ventura',
+    state: 'CA',
+    price: 3650000,
+    type: 'Purchase',
+    status: 'Pre-contract',
+    image: 'https://images.unsplash.com/photo-1621693722835-44c9dcb724fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob21lJTIwcG9vbHxlbnwxfHx8fDE3NjE3MzI1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    mlsNumber: '123458',
+    modifiedDate: 'Sep 11, 2025'
+  },
+  {
+    id: '4',
+    clientName: 'Valerie Sampleton',
+    address: '88 Bay St, 212',
+    city: 'Santa Monica',
+    state: 'CA',
+    price: 414000,
+    type: 'Purchase',
+    status: 'Under Contract',
+    closingDate: 'Oct 28, 2025',
+    image: 'https://images.unsplash.com/photo-1689574120966-c7b1e57a8cfe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZXNpZGVudGlhbCUyMHByb3BlcnR5fGVufDF8fHx8MTc2MTcxNzE5NXww&ixlib=rb-4.1.0&q=80&w=1080',
+    mlsNumber: '123459',
+    modifiedDate: 'Sep 11, 2025',
+    lostDeals: 1
+  },
+  {
+    id: '5',
+    clientName: 'Madeline Lance',
+    address: '525 Cavaletti Lane, 201',
+    city: 'Ventura',
+    state: 'CA',
+    zipCode: '91330',
+    price: 2200,
+    type: 'Lease Listing',
+    status: 'Under Contract',
+    closingDate: 'Oct 23, 2025',
+    image: 'https://images.unsplash.com/photo-1628624747186-a941c476b7ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdWJ1cmJhbiUyMGhvdXNlfGVufDF8fHx8MTc2MTcyNjg4MXww&ixlib=rb-4.1.0&q=80&w=1080',
+    mlsNumber: '123460',
+    modifiedDate: 'Sep 11, 2025'
+  },
+  {
+    id: '6',
+    clientName: 'Elizabeth Browning',
+    address: '45 Huntington Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    price: 825000,
+    type: 'Purchase',
+    status: 'Closed',
+    listDate: 'Nov 4, 2025',
+    image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWFsJTIwZXN0YXRlJTIwaG9tZXxlbnwxfHx8fDE3NjE3MjA1Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    mlsNumber: '123461',
+    modifiedDate: 'Sep 11, 2025'
+  }
+];
