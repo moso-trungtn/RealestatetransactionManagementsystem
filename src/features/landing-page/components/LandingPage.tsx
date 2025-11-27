@@ -6,6 +6,7 @@ import { Footer } from "@/shared/components/Footer";
 
 interface LandingPageProps {
     onLoginClick: () => void;
+    onRecruitingClick: () => void;
 }
 
 const testimonials = [
@@ -31,7 +32,7 @@ const testimonials = [
         avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop'
     }
 ];
-export function LandingPage({ onLoginClick }: LandingPageProps) {
+export function LandingPage({ onLoginClick , onRecruitingClick}: LandingPageProps) {
     return (
         <div className="min-h-screen bg-white">
             {/* Navigation */}
@@ -55,7 +56,7 @@ export function LandingPage({ onLoginClick }: LandingPageProps) {
                             </p>
                             <div className="flex flex-wrap gap-4">
                                 <Button
-                                    onClick={onLoginClick}
+                                    onClick={onRecruitingClick}
                                     className="bg-orange-500 hover:bg-orange-600 text-white !rounded-full"
                                     style={{ fontSize: '18px', padding: '24px 32px', height: 'auto' }}
                                 >
@@ -73,7 +74,7 @@ export function LandingPage({ onLoginClick }: LandingPageProps) {
                         <div className="relative">
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                                 <ImageWithFallback
-                                    src="https://images.unsplash.com/photo-1640109341881-1cd3eaf50909?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjByZWFsJTIwZXN0YXRlJTIwb2ZmaWNlfGVufDF8fHx8MTc2MzY0NDA0MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                    src="/landingpage-top-image.jpg"
                                     alt="Real Estate Office"
                                     className="w-full h-auto"
                                 />
@@ -239,7 +240,7 @@ export function LandingPage({ onLoginClick }: LandingPageProps) {
                         {/* Background Image with Gradient Overlay */}
                         <div className="absolute inset-0">
                             <ImageWithFallback
-                                src="https://images.unsplash.com/photo-1762341116897-921e2a52f7ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHdvbWFuJTIwb2ZmaWNlfGVufDF8fHx8MTc2NDA5MTI4Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                src="/landingpage-bottom-image.png"
                                 alt="Professional Business"
                                 className="w-full h-full object-cover"
                             />

@@ -21,9 +21,13 @@ export default function HomePage() {
     setShowLoginModal(true);
   };
 
+  const handleRecruitingClick = () => {
+    router.push(`/${locale}/recruiting`);
+  };
+
   return (
     <div className="min-h-screen">
-      <LandingPage onLoginClick={handleLoginClick} />
+      <LandingPage onLoginClick={handleLoginClick} onRecruitingClick={handleRecruitingClick} />
       <LoginModal
         open={showLoginModal}
         onClose={() => setShowLoginModal(false)}
