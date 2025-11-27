@@ -7,6 +7,7 @@ import { Footer } from "@/shared/components/Footer";
 interface LandingPageProps {
     onLoginClick: () => void;
     onRecruitingClick: () => void;
+    onLogoClick?: () => void;
 }
 
 const testimonials = [
@@ -32,11 +33,11 @@ const testimonials = [
         avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop'
     }
 ];
-export function LandingPage({ onLoginClick , onRecruitingClick}: LandingPageProps) {
+export function LandingPage({ onLoginClick , onRecruitingClick, onLogoClick}: LandingPageProps) {
     return (
         <div className="min-h-screen bg-white">
             {/* Navigation */}
-            <Navbar onLoginClick={onLoginClick} />
+            <Navbar onLoginClick={onLoginClick} onLogoClick={onLogoClick} />
 
             {/* Hero Section */}
             <section className="relative bg-gradient-to-b from-gray-50 to-white py-20 lg:py-24">

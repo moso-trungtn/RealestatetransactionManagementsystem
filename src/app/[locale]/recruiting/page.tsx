@@ -26,11 +26,25 @@ export default function ReCruitingPage() {
         router.push(`/${locale}/transactions`);
     };
 
+    const handleLogoClick = () => {
+        // Check if user is logged in (you can adjust this based on your auth implementation)
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+        if (isLoggedIn) {
+            // Redirect to dashboard if logged in
+            router.push(`/${locale}/transactions`);
+        } else {
+            // Redirect to homepage if not logged in
+            router.push(`/${locale}`);
+        }
+    };
+
     return (
         <>
             <RecruitingProcess
                 onBack={handleBack}
                 onLoginClick={handleLoginClick}
+                onLogoClick={handleLogoClick}
             />
             <LoginModal
                 open={showLoginModal}

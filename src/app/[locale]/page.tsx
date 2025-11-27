@@ -25,9 +25,26 @@ export default function HomePage() {
     router.push(`/${locale}/recruiting`);
   };
 
+  const handleLogoClick = () => {
+    // Check if user is logged in (you can adjust this based on your auth implementation)
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    if (isLoggedIn) {
+      // Redirect to dashboard if logged in
+      router.push(`/${locale}/transactions`);
+    } else {
+      // Redirect to homepage if not logged in
+      router.push(`/${locale}`);
+    }
+  };
+
   return (
     <div className="min-h-screen">
-      <LandingPage onLoginClick={handleLoginClick} onRecruitingClick={handleRecruitingClick} />
+      <LandingPage
+        onLoginClick={handleLoginClick}
+        onRecruitingClick={handleRecruitingClick}
+        onLogoClick={handleLogoClick}
+      />
       <LoginModal
         open={showLoginModal}
         onClose={() => setShowLoginModal(false)}

@@ -4,10 +4,11 @@ import {Globe} from 'lucide-react';
 
 interface NavbarProps {
     onLoginClick: () => void,
-    onViewTransactions?: () => void
+    onViewTransactions?: () => void,
+    onLogoClick?: () => void
 }
 
-export function Navbar({onLoginClick, onViewTransactions}: NavbarProps) {
+export function Navbar({onLoginClick, onViewTransactions, onLogoClick}: NavbarProps) {
     const languages = [
         {code: 'EN', name: 'English', flag: '🇺🇸'},
         {code: 'ES', name: 'Spanish', flag: '🇪🇸'},
@@ -22,11 +23,16 @@ export function Navbar({onLoginClick, onViewTransactions}: NavbarProps) {
                 <div className="flex justify-between items-center h-full">
                     {/* Logo */}
                     <div className="flex items-center">
-                        <img
-                            src="/main-logo.svg"
-                            alt="Moso Logo"
-                            className="h-8 w-auto"
-                        />
+                        <button
+                            onClick={onLogoClick}
+                            className="cursor-pointer hover:opacity-80 transition-opacity"
+                        >
+                            <img
+                                src="/main-logo.svg"
+                                alt="Moso Logo"
+                                className="h-8 w-auto"
+                            />
+                        </button>
                     </div>
 
                     {/* Center Navigation Links */}

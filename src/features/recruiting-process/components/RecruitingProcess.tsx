@@ -17,6 +17,7 @@ import { Footer } from "@/shared/components/Footer";
 interface RecruitingProcessProps {
     onBack?: () => void;
     onLoginClick: () => void;
+    onLogoClick?: () => void;
 }
 
 interface FormData {
@@ -57,6 +58,7 @@ interface FormData {
 export function RecruitingProcess({
                                       onBack,
                                       onLoginClick,
+                                      onLogoClick,
                                   }: RecruitingProcessProps) {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState<FormData>({
@@ -134,7 +136,7 @@ export function RecruitingProcess({
     return (
         <div className="min-h-screen bg-white">
             {/* Navigation */}
-            <Navbar onLoginClick={onLoginClick} />
+            <Navbar onLoginClick={onLoginClick} onLogoClick={onLogoClick} />
 
             {/* Header with curved design */}
             <div className="relative bg-[#F36F23] pt-12 pb-40 overflow-hidden z-1">

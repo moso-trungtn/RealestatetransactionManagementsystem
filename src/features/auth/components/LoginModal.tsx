@@ -43,6 +43,8 @@ export function LoginModal({
 
         // Validate credentials
         if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+            // Set login state in localStorage
+            localStorage.setItem('isLoggedIn', 'true');
             onLogin();
         } else {
             setError("Invalid email or password. Try demo@moso.com / demo123");
