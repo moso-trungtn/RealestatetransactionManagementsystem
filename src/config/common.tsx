@@ -13,6 +13,15 @@ export const languages = [
     {name: "VI", value: "vi", code: "vi-VN"},
 ]
 
+export const navigations = [
+    {roles: ["agent"],label: "Transactions", value: "transactions", icon: <></>},
+    {roles: ["admin"],label: "Agent Management", value: "agent-management", icon: <></>},
+    {roles: ["admin"],label: "Transaction Management", value: "transaction-management", icon: <></>},
+    {roles: ["admin"],label: "Admin Settings", value: "admin-settings", icon: <></>},
+    {roles: ["admin"],label: "PDF Form Builder", value: "pdf-form-builder", icon: <></>},
+
+]
+
 // ============================================================================
 // TRANSACTIONS DATA
 // ============================================================================
@@ -671,3 +680,5 @@ export const mockData = {
 };
 
 export default mockData;
+
+

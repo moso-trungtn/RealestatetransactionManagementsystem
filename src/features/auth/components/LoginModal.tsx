@@ -22,11 +22,7 @@ interface LoginModalProps {
     onLogin: () => void;
 }
 
-export function LoginModal({
-                               open,
-                               onClose,
-                               onLogin,
-                           }: LoginModalProps) {
+export function LoginModal({open, onClose, onLogin}: LoginModalProps) {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -34,18 +30,18 @@ export function LoginModal({
     const [error, setError] = useState("");
 
     // Demo account credentials
-    const DEMO_EMAIL = "demo@moso.com";
-    const DEMO_PASSWORD = "demo123";
+    const DEMO_EMAIL = "";
+    const DEMO_PASSWORD = "";
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+        onLogin();
 
         // Validate credentials
         if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
             // Set login state in localStorage
             localStorage.setItem('isLoggedIn', 'true');
-            onLogin();
         } else {
             setError("Invalid email or password. Try demo@moso.com / demo123");
         }
@@ -86,7 +82,7 @@ export function LoginModal({
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-4">
                         <div className="space-y-1.5">
                             <Label
                                 htmlFor="email"
@@ -158,13 +154,14 @@ export function LoginModal({
                         </div>
 
                         <Button
-                            type="submit"
+                            type="button"
                             className="w-full h-10 bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/20 transition-all hover:shadow-orange-500/30"
                             style={{fontSize: "14px", fontWeight: "600"}}
+                            onClick={(e) => handleSubmit(e)}
                         >
                             Sign In
                         </Button>
-                    </form>
+                    </div>
 
                     <div className="relative my-4">
                         <div className="absolute inset-0 flex items-center">

@@ -9,7 +9,7 @@ import { ChevronLeft, Search, Mail, FolderPlus, FilePlus, MoreHorizontal, FileTe
 import { Transaction } from '@/types/transaction';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CommissionSplit } from '../CommissionSplit';
-import { NewTransaction, TransactionFormData, Party, Condition } from '../NewTransaction';
+import { NewTransaction} from '../NewTransaction';
 import { ToDoTabContent } from '../ToDoTabContent';
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -41,6 +41,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {OfferCondition, OtherParty, TransactionFormData} from "@/types/schema";
 
 interface TransactionDetailProps {
   transaction: Transaction;
@@ -331,7 +332,7 @@ export function TransactionDetail({ transaction, onBack }: TransactionDetailProp
     console.log('Commission split data:', data);
   };
 
-  const handleEditTransaction = (data: TransactionFormData & { parties: Party[]; conditions: Condition[] }) => {
+  const handleEditTransaction = (data: TransactionFormData & { parties: OtherParty[]; conditions: OfferCondition[] }) => {
     console.log('Updated transaction data:', data);
     setShowEditTransaction(false);
   };
@@ -582,10 +583,7 @@ export function TransactionDetail({ transaction, onBack }: TransactionDetailProp
         />
       )}
 
-      {/* Navbar */}
-      <Navbar onViewTransactions={onBack} onLoginClick={function (): void {
-          throw new Error("Function not implemented.");
-      }} />
+
 
       {/* Breadcrumb Navigation */}
       <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
@@ -1621,8 +1619,6 @@ export function TransactionDetail({ transaction, onBack }: TransactionDetailProp
     </TabsContent>
   </Tabs>
 
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
