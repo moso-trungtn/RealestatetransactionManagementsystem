@@ -18,7 +18,7 @@ export const navigations = [
     {roles: ["admin"],label: "Agent Management", value: "agent-management", icon: <></>},
     {roles: ["admin"],label: "Transaction Management", value: "transaction-management", icon: <></>},
     {roles: ["admin"],label: "Admin Settings", value: "admin-settings", icon: <></>},
-    {roles: ["admin"],label: "PDF Form Builder", value: "pdf-form-builder", icon: <></>},
+    {roles: ["admin"],label: "PDF Form Builder", value: "builder", icon: <></>},
 
 ]
 

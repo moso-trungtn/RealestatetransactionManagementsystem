@@ -33,7 +33,7 @@ export const NotFoundComponent = () => {
                         Go Back
                     </Button>
                     <Button
-                        onClick={() => router.push("/dashboard")}
+                        onClick={() => router.push("/")}
                         className="bg-[#F36F23] hover:bg-[#E05D15] text-white"
                     >
                         <Home className="size-4 mr-2" />
