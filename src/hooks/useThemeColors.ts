@@ -71,9 +71,11 @@ export function useThemeColors() {
     getPrimaryHoverStyle: () => ({
       backgroundColor: getDarkerShade(config.primaryColor, 15),
     }),
+
     // Helper function to get light background color
     getLightPrimaryBg: () => getLighterShade(config.primaryColor, 90),
     // Helper function to get primary text class (returns empty string, use inline styles instead)
     getPrimaryTextClass: () => '',
+
   };
 }

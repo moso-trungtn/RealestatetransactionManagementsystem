@@ -19,8 +19,7 @@ export const Wrapper:FC<WrapperProps> = ({children}) => {
     }
 
     function onLogoHandleClick() {
-
-        console.log("asdas")
+        router.push("/")
     }
 
     function handleSubmitLogin() {

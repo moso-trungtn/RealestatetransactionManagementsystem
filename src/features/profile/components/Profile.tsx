@@ -1,70 +1,94 @@
 "use client"
-import { useState } from 'react';
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { PrimaryButton } from "@/components/custom/primary-button";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ImageWithFallback } from "@/components/custom/image-with-fallback";
-import { Mail, Phone, MapPin, MoreHorizontal, X, Upload } from 'lucide-react';
+import {useState, useRef, RefObject, ForwardRefExoticComponent, RefAttributes} from 'react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { PrimaryButton } from '@/components/custom/primary-button';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ImageWithFallback } from '@/components/custom/image-with-fallback';
+import {Mail, Phone, MapPin, User, Home, FileText, Upload, Check, X, Edit2, LucideProps} from 'lucide-react';
 import { toast } from 'sonner';
-import { Toaster } from "@/components/ui/sonner";
-import { useThemeColors } from "@/hooks/useThemeColors";
+import { Toaster } from '@/components/ui/sonner';
+import { useThemeColors } from '@/hooks/useThemeColors';
+import {LeftBar} from "@/features/profile/components/leftbar";
+import {RightSide} from "@/features/pdf-form-builder/components";
+import {RightBar} from "@/features/profile/components/rightbar";
 
-export function ProfileComp() {
-  const { primaryColor, primaryLight } = useThemeColors();
+export type initDataFormType = typeof initDataForm
+const initDataForm = {
+  // Personal Information
+  profilePicture: '',
+  firstName: 'Chau',
+  lastName: 'Chau',
+  middleName: '',
+  personalEmail: 'chauchau.inc@gmail.com',
+  personalPhone: '(322) 334-3455',
+  legalFirstName: 'Legal_given_name',
+  legalLastName: 'Legal_last_name',
+  preferredLanguages: ['Albanian', 'Bengali', 'Cantonese Chinese', 'English', 'Russian', 'Vietnamese'],
+  maritalStatus: 'Married',
 
-  const [formData, setFormData] = useState({
-    // Personal Information
-    profilePicture: '',
-    firstName: 'Chau',
-    lastName: 'Chau',
-    middleName: '',
-    personalEmail: 'chauchau.inc@gmail.com',
-    personalPhone: '(322) 334-3455',
-    legalFirstName: 'Legal_given_name',
-    legalLastName: 'Legal_last_name',
-    preferredLanguages: ['Albanian', 'Bengali', 'Cantonese Chinese', 'English', 'Russian', 'Vietnamese'],
-    maritalStatus: 'Married',
-    
-    // Citizenship & Personal Details
-    citizenship: 'US Citizen',
-    ssn: '123-56-2656',
-    dateOfBirth: '1/16/2001',
-    
-    // Personal Address
-    personalStreetAddress: '1251 Sunset Boulevard',
-    personalAptUnit: '',
-    personalZipCode: '29169',
-    personalState: 'SC',
-    personalCounty: 'LEXINGTON',
-    personalCity: 'West Columbia',
-    
-    // Mailing Address
-    sameAsPersonalAddress: true,
-    mailingStreetAddress: '1251 Sunset Boulevard',
-    mailingAptUnit: '',
-    mailingZipCode: '29169',
-    mailingCity: 'West Columbia',
-    
-    // Others
-    note: 'have not completed the profile yet. okla',
-    password: '******'
-  });
+  // Citizenship & Personal Details
+  citizenship: 'US Citizen',
+  ssn: '123-56-2656',
+  dateOfBirth: '1/16/2001',
+
+  // Personal Address
+  personalStreetAddress: '1251 Sunset Boulevard',
+  personalAptUnit: '',
+  personalZipCode: '29169',
+  personalState: 'SC',
+  personalCounty: 'LEXINGTON',
+  personalCity: 'West Columbia',
+
+  // Mailing Address
+  sameAsPersonalAddress: true,
+  mailingStreetAddress: '1251 Sunset Boulevard',
+  mailingAptUnit: '',
+  mailingZipCode: '29169',
+  mailingCity: 'West Columbia',
+
+  // Others
+  note: 'have not completed the profile yet. okla',
+  password: '******'
+}
+export type menuItemsType = {
+  id: string
+  label: string
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+  ref: RefObject<HTMLDivElement | null>
+}[]
+
+
+
+export function UserProfile() {
+  const { primaryColor, getLightPrimaryBg, getPrimaryTextClass } = useThemeColors();
+
+  const [activeSection, setActiveSection] = useState('personal');
+  const personalRef = useRef<HTMLDivElement>(null);
+  const addressRef = useRef<HTMLDivElement>(null);
+  const otherRef = useRef<HTMLDivElement>(null);
+
+  const [formData, setFormData] = useState(initDataForm);
 
   const [languageInput, setLanguageInput] = useState('');
   const [isEditingEmail, setIsEditingEmail] = useState(false);
+
+  const menuItems = [
+    { id: 'personal', label: 'Personal Information', icon: User, ref: personalRef },
+    { id: 'address', label: 'Address Information', icon: Home, ref: addressRef },
+    { id: 'other', label: 'Other Information', icon: FileText, ref: otherRef },
+  ];
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
-    
+
     // Auto-sync mailing address if checkbox is enabled
     if (formData.sameAsPersonalAddress && field.startsWith('personal')) {
       const mailingField = field.replace('personal', 'mailing');
@@ -106,13 +130,6 @@ export function ProfileComp() {
     }
   };
 
-  const removeLanguage = (language: string) => {
-    setFormData(prev => ({
-      ...prev,
-      preferredLanguages: prev.preferredLanguages.filter(lang => lang !== language)
-    }));
-  };
-
   const handleSaveProfile = () => {
     toast.success('Profile updated successfully!');
   };
@@ -128,456 +145,48 @@ export function ProfileComp() {
     setIsEditingEmail(!isEditingEmail);
   };
 
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>, sectionId: string) => {
+    setActiveSection(sectionId);
+    // ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+    if (!ref.current) return;
+
+    const rect = ref.current.getBoundingClientRect();
+
+    const isInView =
+        rect.top >= 0 &&
+        rect.bottom <= window.innerHeight;
+    if (!isInView) {
+      // scroll đến đúng vị trí top của element
+      const y = rect.top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
+
+  function handleLanguageChange(vals:string[]) {
+    let data = formData.preferredLanguages
+    vals.map((val) => {
+      if(data.includes(val)) {
+        data.splice(data.indexOf(val), 1);
+      }
+      if(!data.includes(val)) {
+        data.push(val);
+      }
+    })
+    setFormData(prev => ({
+      ...prev,
+      preferredLanguages: data
+    }));
+  }
+
   return (
-    <div className="max-w-5xl mx-auto p-8">
-      <Toaster />
-      
-      <div className="bg-white rounded-lg shadow-sm">
-        <div className="border-b p-6">
-          <h1 className="text-2xl">Admin Profile</h1>
-        </div>
-        
-        <div className="p-8">
-          <Accordion type="multiple" defaultValue={['personal-info', 'address', 'other']} className="space-y-4">
-            
-            {/* Personal Information Section */}
-            <AccordionItem value="personal-info" className="border rounded-lg px-6">
-              <AccordionTrigger className="hover:no-underline">
-                <h2 className="text-lg">PERSONAL INFORMATION</h2>
-              </AccordionTrigger>
-              <AccordionContent className="pt-6 space-y-6">
-                {/* Profile Picture */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Picture (optional)</Label>
-                  <div className="flex items-center gap-4">
-                    <Avatar className="h-32 w-32">
-                      <AvatarImage src={formData.profilePicture} />
-                      <AvatarFallback style={{ backgroundColor: primaryColor }}>
-                        <ImageWithFallback 
-                          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=200&h=200&fit=crop"
-                          alt="Profile"
-                          className="h-full w-full object-cover"
-                        />
-                      </AvatarFallback>
-                    </Avatar>
-                    <Button variant="outline" size="sm">
-                      <Upload className="h-4 w-4 mr-2" />
-                      Upload
-                    </Button>
-                  </div>
-                </div>
+      <div className="flex min-h-screen bg-gray-50">
+        <Toaster />
+        <div className="flex items-start mx-auto  w-full max-w-[1200px]" >
 
-                {/* Full Name */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Full name</Label>
-                  <div className="flex-1 flex gap-4">
-                    <div className="flex-1 relative">
-                      <Input 
-                        value={formData.firstName}
-                        onChange={(e:any) => handleInputChange('firstName', e.target.value)}
-                        className="bg-gray-100"
-                      />
-                      <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-red-500 rounded p-1 hover:bg-red-600">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </button>
-                    </div>
-                    <Input 
-                      value={formData.lastName}
-                      onChange={(e:any) => handleInputChange('lastName', e.target.value)}
-                      className="flex-1"
-                    />
-                  </div>
-                </div>
-
-                {/* Middle Name */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Middle name (optional)</Label>
-                  <div className="flex-1">
-                    <Input 
-                      value={formData.middleName}
-                      onChange={(e:any) => handleInputChange('middleName', e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                {/* Personal Email */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Personal email</Label>
-                  <div className="flex-1 flex gap-4">
-                    <div className="flex-1 relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                      <Input 
-                        value={formData.personalEmail}
-                        onChange={(e:any) => handleInputChange('personalEmail', e.target.value)}
-                        className="pl-10 bg-gray-100"
-                        disabled={!isEditingEmail}
-                      />
-                    </div>
-                    <Button 
-                      variant="secondary"
-                      onClick={handleChangeEmail}
-                      className="bg-gray-600 hover:bg-gray-700 text-white"
-                    >
-                      {isEditingEmail ? 'Save' : 'Change'}
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Personal Phone */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Personal phone</Label>
-                  <div className="flex-1 relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                    <Input 
-                      value={formData.personalPhone}
-                      onChange={(e:any) => handleInputChange('personalPhone', e.target.value)}
-                      className="pl-10 bg-gray-100"
-                    />
-                  </div>
-                </div>
-
-                {/* Legal Full Name */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Legal full name</Label>
-                  <div className="flex-1 space-y-2">
-                    <div className="flex gap-4">
-                      <Input 
-                        value={formData.legalFirstName}
-                        onChange={(e:any) => handleInputChange('legalFirstName', e.target.value)}
-                        className="flex-1"
-                        placeholder="Legal_given_name"
-                      />
-                      <div className="flex-1 relative">
-                        <Input 
-                          value={formData.legalLastName}
-                          onChange={(e:any) => handleInputChange('legalLastName', e.target.value)}
-                          placeholder="Legal_last_name"
-                        />
-                        <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-red-500 rounded p-1 hover:bg-red-600">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                    <p className="text-sm text-gray-500">Based on your I-94 or Green Card</p>
-                  </div>
-                </div>
-
-                {/* Preferred Languages */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Preferred languages</Label>
-                  <div className="flex-1 space-y-2">
-                    <div className="border rounded-md p-3 min-h-[80px] flex flex-wrap gap-2">
-                      {formData.preferredLanguages.map((language) => (
-                        <span 
-                          key={language}
-                          className="inline-flex items-center gap-1 bg-gray-200 px-3 py-1 rounded text-sm"
-                        >
-                          <button
-                            onClick={() => removeLanguage(language)}
-                            className="text-gray-500 hover:text-gray-700"
-                          >
-                            <X className="h-3 w-3" />
-                          </button>
-                          {language}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="text-sm text-gray-500">List all languages that you can speak fluently</p>
-                  </div>
-                </div>
-
-                {/* Marital Status */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Marital status (optional)</Label>
-                  <div className="flex-1">
-                    <Select value={formData.maritalStatus} onValueChange={(value:any) => handleInputChange('maritalStatus', value)}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Single">Single</SelectItem>
-                        <SelectItem value="Married">Married</SelectItem>
-                        <SelectItem value="Divorced">Divorced</SelectItem>
-                        <SelectItem value="Widowed">Widowed</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {/* Citizenship */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Citizenship</Label>
-                  <div className="flex-1">
-                    <Select value={formData.citizenship} onValueChange={(value:any) => handleInputChange('citizenship', value)}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="US Citizen">US Citizen</SelectItem>
-                        <SelectItem value="Permanent Resident">Permanent Resident</SelectItem>
-                        <SelectItem value="Work Visa">Work Visa</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                {/* SSN */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">SSN (optional)</Label>
-                  <div className="flex-1">
-                    <Input 
-                      value={formData.ssn}
-                      onChange={(e:any) => handleInputChange('ssn', e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                {/* Date of Birth */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Date of birth (optional)</Label>
-                  <div className="flex-1 flex gap-2">
-                    <Input 
-                      value={formData.dateOfBirth}
-                      onChange={(e:any) => handleInputChange('dateOfBirth', e.target.value)}
-                      className="flex-1"
-                    />
-                    <Button variant="secondary" size="icon" className="bg-gray-600 hover:bg-gray-700 text-white">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Address Section */}
-            <AccordionItem value="address" className="border rounded-lg px-6">
-              <AccordionTrigger className="hover:no-underline">
-                <h2 className="text-lg">ADDRESS INFORMATION</h2>
-              </AccordionTrigger>
-              <AccordionContent className="pt-6 space-y-8">
-                {/* Personal Address */}
-                <div>
-                  <div className="mb-6">
-                    <h3 className="text-lg italic">Personal Address</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      This is where the associate lives so the company can set up state income tax deduction accordingly. Any new changes regarding this matter must be reported to the Human Resources Department.
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    {/* Personal Street Address */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">Personal street address</Label>
-                      <div className="flex-1">
-                        <Input 
-                          value={formData.personalStreetAddress}
-                          onChange={(e:any) => handleInputChange('personalStreetAddress', e.target.value)}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Apt/Unit */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">Apt/Unit (optional)</Label>
-                      <div className="flex-1">
-                        <Input 
-                          value={formData.personalAptUnit}
-                          onChange={(e:any) => handleInputChange('personalAptUnit', e.target.value)}
-                        />
-                      </div>
-                    </div>
-
-                    {/* ZIP Code */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">ZIP code</Label>
-                      <div className="flex-1 relative">
-                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                        <Input 
-                          value={formData.personalZipCode}
-                          onChange={(e:any) => handleInputChange('personalZipCode', e.target.value)}
-                          className="pl-10"
-                        />
-                      </div>
-                    </div>
-
-                    {/* State */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">State (optional)</Label>
-                      <div className="flex-1">
-                        <Input 
-                          value={formData.personalState}
-                          onChange={(e:any) => handleInputChange('personalState', e.target.value)}
-                          className="bg-gray-100"
-                          disabled
-                        />
-                      </div>
-                    </div>
-
-                    {/* County */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">County (optional)</Label>
-                      <div className="flex-1">
-                        <Select value={formData.personalCounty} onValueChange={(value:any) => handleInputChange('personalCounty', value)}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="LEXINGTON">LEXINGTON</SelectItem>
-                            <SelectItem value="RICHLAND">RICHLAND</SelectItem>
-                            <SelectItem value="CHARLESTON">CHARLESTON</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    {/* City */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">City</Label>
-                      <div className="flex-1">
-                        <Input 
-                          value={formData.personalCity}
-                          onChange={(e:any) => handleInputChange('personalCity', e.target.value)}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mailing Address */}
-                <div className="pt-6 border-t">
-                  <div className="mb-6">
-                    <h3 className="text-lg italic">Mailing Address</h3>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    {/* Same as Personal Address Checkbox */}
-                    <div className="flex items-start gap-8">
-                      <div className="w-48"></div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <Checkbox 
-                            id="sameAddress"
-                            checked={formData.sameAsPersonalAddress}
-                            onCheckedChange={handleSameAddressChange}
-                          />
-                          <Label htmlFor="sameAddress" className="cursor-pointer">
-                            Same as personal address
-                          </Label>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Mailing Street Address */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">Mailing street address</Label>
-                      <div className="flex-1 relative">
-                        <Input 
-                          value={formData.mailingStreetAddress}
-                          onChange={(e:any) => handleInputChange('mailingStreetAddress', e.target.value)}
-                          className="bg-gray-100"
-                          disabled={formData.sameAsPersonalAddress}
-                        />
-                        <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-red-500 rounded p-1 hover:bg-red-600">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Mailing Apt/Unit */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">Mailing Apt/Unit (optional)</Label>
-                      <div className="flex-1">
-                        <Input 
-                          value={formData.mailingAptUnit}
-                          onChange={(e:any) => handleInputChange('mailingAptUnit', e.target.value)}
-                          disabled={formData.sameAsPersonalAddress}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Mailing ZIP Code */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">Mailing ZIP code</Label>
-                      <div className="flex-1 space-y-2">
-                        <Input 
-                          value={formData.mailingZipCode}
-                          onChange={(e:any) => handleInputChange('mailingZipCode', e.target.value)}
-                          disabled={formData.sameAsPersonalAddress}
-                        />
-                        <p className="text-sm text-gray-600">West Columbia, SC.</p>
-                      </div>
-                    </div>
-
-                    {/* Mailing City */}
-                    <div className="flex items-start gap-8">
-                      <Label className="w-48 pt-2">Mailing city</Label>
-                      <div className="flex-1">
-                        <Input 
-                          value={formData.mailingCity}
-                          onChange={(e:any) => handleInputChange('mailingCity', e.target.value)}
-                          disabled={formData.sameAsPersonalAddress}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Others Section */}
-            <AccordionItem value="other" className="border rounded-lg px-6">
-              <AccordionTrigger className="hover:no-underline">
-                <h2 className="text-lg">OTHER INFORMATION</h2>
-              </AccordionTrigger>
-              <AccordionContent className="pt-6 space-y-6">
-                {/* Note */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Note (optional)</Label>
-                  <div className="flex-1">
-                    <Textarea 
-                      value={formData.note}
-                      onChange={(e:any) => handleInputChange('note', e.target.value)}
-                      rows={6}
-                      className="resize-none"
-                    />
-                  </div>
-                </div>
-
-                {/* Password */}
-                <div className="flex items-start gap-8">
-                  <Label className="w-48 pt-2">Password</Label>
-                  <div className="flex-1 flex gap-4">
-                    <Input 
-                      type="password"
-                      value={formData.password}
-                      className="flex-1 bg-gray-100"
-                      disabled
-                    />
-                    <Button 
-                      variant="secondary"
-                      onClick={handleChangePassword}
-                      className="bg-gray-600 hover:bg-gray-700 text-white"
-                    >
-                      Change
-                    </Button>
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-4 pt-8 mt-8 border-t">
-            <Button variant="outline" onClick={() => toast.info('Changes discarded')}>
-              Cancel
-            </Button>
-            <PrimaryButton onClick={handleSaveProfile}>
-              Save Changes
-            </PrimaryButton>
-          </div>
+          <LeftBar primaryColor={primaryColor} formData={formData} menuItems={menuItems} handleSaveProfile={handleSaveProfile} toast={toast} activeSection={activeSection} scrollToSection={scrollToSection} />
+          <RightBar handleLanguageChange={handleLanguageChange} primaryColor={primaryColor} personalRef={personalRef} getLightPrimaryBg={getLightPrimaryBg} formData={formData} handleInputChange={handleInputChange} isEditingEmail={isEditingEmail} handleChangeEmail={handleChangeEmail} addressRef={addressRef} handleSameAddressChange={handleSameAddressChange} otherRef={otherRef} handleChangePassword={handleChangePassword} />
         </div>
       </div>
-    </div>
   );
 }

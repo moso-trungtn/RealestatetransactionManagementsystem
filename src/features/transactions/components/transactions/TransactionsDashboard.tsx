@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { PrimaryButton } from "@/components/custom/primary-button";
 import { Input } from "@/components/ui/input";
 import { TransactionCard } from './TransactionCard';
-import { NewTransaction, TransactionFormData, Party, Condition } from '../NewTransaction';
+import { NewTransaction } from '../NewTransaction';
 import { AssignOwner, OwnerAssignments } from "../AssignOwner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -17,6 +17,7 @@ import { useWebsiteConfig } from "@/contexts/WebsiteConfigContext";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Footer } from "@/components/common/Footer";
 import { mockTransactions } from '@/features/transactions/data/mockTransactions';
+import {OfferCondition, OtherParty, TransactionFormData} from "@/types/schema";
 
 interface TransactionsDashboardProps {
   onViewTransaction: (transaction: Transaction) => void;
@@ -107,7 +108,7 @@ export function TransactionsDashboard({ onViewTransaction, onViewProfile, onView
     return '🏠';
   };
 
-  const handleNewTransactionSave = (data: TransactionFormData & { parties: Party[]; conditions: Condition[] }) => {
+  const handleNewTransactionSave = (data: TransactionFormData & { parties: OtherParty[]; conditions: OfferCondition[] }) => {
     console.log('New transaction data:', data);
     setShowNewTransaction(false);
   };
